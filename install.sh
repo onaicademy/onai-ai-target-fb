@@ -53,7 +53,7 @@ for skill_dir in "$ROOT_DIR/agent/skills"/*/; do
     if [ -d "$skill_dir" ]; then
         skill_name=$(basename "$skill_dir")
         if [ ! -d "$HOME/.claude/skills/$skill_name" ]; then
-            cp -R "$skill_dir" "$HOME/.claude/skills/"
+            cp -R "$skill_dir" "$HOME/.claude/skills/$skill_name"
             SKILL_COUNT=$((SKILL_COUNT + 1))
         fi
     fi
