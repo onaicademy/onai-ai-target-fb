@@ -30,7 +30,7 @@
 
 Перед запуском `install.sh` пройди по чеклисту:
 
-**[`docs/facebook-setup/00-pre-flight-checklist.md`](docs/facebook-setup/00-pre-flight-checklist.md)** — 7 пунктов: BM, страница, рекламный аккаунт, Instagram, WhatsApp, оплата.
+**[Чеклист в PDF](docs/facebook-setup-pdf/00-pre-flight-checklist.pdf)** или [в Markdown](docs/facebook-setup/00-pre-flight-checklist.md) — 7 пунктов: BM, страница, рекламный аккаунт, Instagram, WhatsApp, оплата.
 
 ⚠️ **Особое внимание:** при подключении оплаты обязательно поставь галочку «я плачу налоги сам в своей стране» и впиши БИН/ИНН — иначе Facebook будет удерживать +12% НДС с каждого пополнения. Подробно: [`docs/facebook-setup/06-payment-method.md`](docs/facebook-setup/06-payment-method.md).
 
