@@ -30,7 +30,9 @@
 
 Перед запуском `install.sh` пройди по чеклисту:
 
-**[Чеклист в PDF](docs/facebook-setup-pdf/00-pre-flight-checklist.pdf)** или [в Markdown](docs/facebook-setup/00-pre-flight-checklist.md) — 7 пунктов: BM, страница, рекламный аккаунт, Instagram, WhatsApp, оплата.
+**Самый простой способ — спросить агента:** в Claude Code напиши `Что мне нужно подключить перед запуском рекламы?` — скилл `setup-checklist` проведёт тебя по 7 пунктам диалогом, шаг за шагом.
+
+Если предпочитаешь читать сам — открой [`docs/facebook-setup-txt/00-pre-flight-checklist.txt`](docs/facebook-setup-txt/00-pre-flight-checklist.txt) (читается в любом блокноте) или [Markdown-версию](docs/facebook-setup/00-pre-flight-checklist.md) на GitHub.
 
 ⚠️ **Особое внимание:** при подключении оплаты обязательно поставь галочку «я плачу налоги сам в своей стране» и впиши БИН/ИНН — иначе Facebook будет удерживать +12% НДС с каждого пополнения. Подробно: [`docs/facebook-setup/06-payment-method.md`](docs/facebook-setup/06-payment-method.md).
 
