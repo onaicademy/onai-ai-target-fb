@@ -1,5 +1,6 @@
 #!/bin/bash
-# AI-Таргетолог для Claude Code — автоматическая установка
+# AI-Таргетолог для Claude Code — автоустановщик
+# Подключает Pipeboard Remote MCP и копирует 12 скиллов в Claude Code.
 # Запуск:  ./install.sh
 set -e
 
@@ -9,7 +10,6 @@ RED='\033[0;31m'
 NC='\033[0m'
 
 ROOT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-cd "$ROOT_DIR"
 
 echo
 echo -e "${GREEN}╔════════════════════════════════════════════════════════╗${NC}"
@@ -17,97 +17,88 @@ echo -e "${GREEN}║   AI-Таргетолог для Claude Code — устан
 echo -e "${GREEN}╚════════════════════════════════════════════════════════╝${NC}"
 echo
 
-# ─── 1. Проверки окружения ──────────────────────────────────
-echo -e "${GREEN}[1/5]${NC} Проверяем зависимости..."
-
-check_cmd() {
-    if ! command -v "$1" >/dev/null 2>&1; then
-        echo -e "  ${RED}✗${NC} $1 не найден. $2"
-        return 1
-    else
-        echo -e "  ${GREEN}✓${NC} $1: $($1 --version 2>&1 | head -1)"
-        return 0
-    fi
-}
-
-MISSING=0
-check_cmd python3 "Установи Python 3.10+ с https://python.org" || MISSING=1
-check_cmd git     "Установи Git с https://git-scm.com" || MISSING=1
-check_cmd npm     "Установи Node.js с https://nodejs.org" || MISSING=1
+# ─── 1. Проверки ───────────────────────────────────────────
+echo -e "${GREEN}[1/3]${NC} Проверяем что Claude Code установлен..."
 
 if ! command -v claude >/dev/null 2>&1; then
-    echo -e "  ${YELLOW}!${NC} claude CLI не найден. Установи:  npm install -g @anthropic-ai/claude-code"
-    MISSING=1
-else
-    echo -e "  ${GREEN}✓${NC} claude: $(claude --version 2>&1 | head -1)"
-fi
-
-if [ $MISSING -ne 0 ]; then
+    echo -e "  ${RED}✗${NC} claude CLI не найден"
     echo
-    echo -e "${RED}Не хватает зависимостей. Установи их и запусти заново.${NC}"
+    echo "Установи Claude Code:"
+    echo "  npm install -g @anthropic-ai/claude-code"
+    echo
     exit 1
 fi
+echo -e "  ${GREEN}✓${NC} claude: $(claude --version 2>&1 | head -1)"
 
-# ─── 2. Python venv для MCP-сервера ─────────────────────────
+# ─── 2. Подключаем Pipeboard Remote MCP ─────────────────────
 echo
-echo -e "${GREEN}[2/5]${NC} Создаём Python-окружение для MCP-сервера..."
+echo -e "${GREEN}[2/3]${NC} Подключаем Pipeboard Remote MCP..."
 
-cd "$ROOT_DIR/mcp-server"
-if [ ! -d ".venv" ]; then
-    python3 -m venv .venv
-    echo -e "  ${GREEN}✓${NC} .venv создано"
+if claude mcp list 2>/dev/null | grep -q "meta-ads-mcp"; then
+    echo -e "  ${GREEN}✓${NC} meta-ads-mcp уже подключён"
 else
-    echo -e "  ${GREEN}✓${NC} .venv уже существует"
+    claude mcp add meta-ads-mcp \
+        --transport http \
+        https://meta-ads.mcp.pipeboard.co/ 2>&1 | tail -5
+    echo -e "  ${GREEN}✓${NC} meta-ads-mcp подключён"
 fi
 
-# ─── 3. Зависимости MCP ─────────────────────────────────────
+# ─── 3. Копируем скиллы и конфиги ───────────────────────────
 echo
-echo -e "${GREEN}[3/5]${NC} Ставим зависимости MCP-сервера..."
-source .venv/bin/activate
-pip install --upgrade pip --quiet
-pip install -r requirements.txt --quiet
-echo -e "  ${GREEN}✓${NC} зависимости установлены"
+echo -e "${GREEN}[3/3]${NC} Копируем 12 скиллов и конфиги..."
 
-# ─── 4. .env ────────────────────────────────────────────────
-echo
-echo -e "${GREEN}[4/5]${NC} Подготавливаем файл .env..."
+mkdir -p ~/.claude/skills
+SKILL_COUNT=0
+for skill_dir in "$ROOT_DIR/agent/skills"/*/; do
+    if [ -d "$skill_dir" ]; then
+        skill_name=$(basename "$skill_dir")
+        if [ ! -d "$HOME/.claude/skills/$skill_name" ]; then
+            cp -R "$skill_dir" "$HOME/.claude/skills/"
+            SKILL_COUNT=$((SKILL_COUNT + 1))
+        fi
+    fi
+done
 
-cd "$ROOT_DIR"
-if [ ! -f ".env" ]; then
-    cp .env.example .env
-    echo -e "  ${GREEN}✓${NC} .env создан из .env.example"
-    NEEDS_TOKENS=1
+if [ $SKILL_COUNT -gt 0 ]; then
+    echo -e "  ${GREEN}✓${NC} скопировано $SKILL_COUNT скиллов в ~/.claude/skills/"
 else
-    echo -e "  ${GREEN}✓${NC} .env уже существует — не трогаем"
-    NEEDS_TOKENS=0
+    echo -e "  ${YELLOW}!${NC} скиллы уже на месте (ничего не перезаписывал)"
 fi
 
-# ─── 5. Готово ──────────────────────────────────────────────
-echo
-echo -e "${GREEN}[5/5]${NC} Проверяем структуру..."
-[ -d "agent/skills" ] && echo -e "  ${GREEN}✓${NC} agent/skills/ найден"
-[ -f "agent/config/AGENT.md" ] && echo -e "  ${GREEN}✓${NC} agent/config/AGENT.md найден"
-[ -f "mcp-server/meta_ads_mcp/__init__.py" ] && echo -e "  ${GREEN}✓${NC} mcp-server/ инициализирован"
+WORKSPACE_DIR="$HOME/Desktop/AI-Workspace"
+if [ -d "$WORKSPACE_DIR" ]; then
+    if [ ! -d "$WORKSPACE_DIR/agent" ]; then
+        cp -R "$ROOT_DIR/agent/config" "$WORKSPACE_DIR/agent"
+        echo -e "  ${GREEN}✓${NC} конфиги скопированы в $WORKSPACE_DIR/agent/"
+    else
+        echo -e "  ${YELLOW}!${NC} $WORKSPACE_DIR/agent уже существует — не перезаписываю"
+    fi
+else
+    echo -e "  ${YELLOW}!${NC} $WORKSPACE_DIR не найден"
+    echo "     Создай папку AI-Workspace на рабочем столе (Урок 2),"
+    echo "     потом скопируй вручную:"
+    echo "     cp -R $ROOT_DIR/agent/config $WORKSPACE_DIR/agent"
+fi
 
+# ─── Готово ────────────────────────────────────────────────
 echo
 echo -e "${GREEN}╔════════════════════════════════════════════════════════╗${NC}"
 echo -e "${GREEN}║                  УСТАНОВКА ЗАВЕРШЕНА                  ║${NC}"
 echo -e "${GREEN}╚════════════════════════════════════════════════════════╝${NC}"
-
-if [ $NEEDS_TOKENS -eq 1 ]; then
-    echo
-    echo -e "${YELLOW}СЛЕДУЮЩИЕ ШАГИ:${NC}"
-    echo
-    echo "  1. Открой файл .env в редакторе:"
-    echo "     ${GREEN}open .env${NC}   (на Mac)  или  ${GREEN}code .env${NC}   (VS Code)"
-    echo
-    echo "  2. Заполни токены — где брать описано в:"
-    echo "     ${GREEN}docs/00-full-setup-guide.md${NC}"
-    echo
-    echo "  3. Открой Claude Code в этой папке:"
-    echo "     ${GREEN}claude${NC}"
-    echo
-    echo "  4. Первая команда агенту:"
-    echo "     ${GREEN}> Прочитай agent/config/AGENT.md и расскажи что умеешь${NC}"
-    echo
-fi
+echo
+echo -e "${YELLOW}СЛЕДУЮЩИЕ ШАГИ:${NC}"
+echo
+echo "  1. Открой Claude Code в твоём AI-Workspace:"
+echo "     ${GREEN}cd ~/Desktop/AI-Workspace${NC}"
+echo "     ${GREEN}claude${NC}"
+echo
+echo "  2. Внутри Claude введи команду авторизации в Pipeboard:"
+echo "     ${GREEN}/mcp${NC}"
+echo "     откроется браузер → логинишься через Facebook"
+echo "     Pipeboard сам цепляет твои рекламные аккаунты"
+echo
+echo "  3. Первая команда агенту:"
+echo "     ${GREEN}> Покажи мои рекламные аккаунты${NC}"
+echo
+echo "  Полная инструкция: README.md"
+echo
