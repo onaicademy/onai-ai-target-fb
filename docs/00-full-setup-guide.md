@@ -12,7 +12,7 @@
 2. [Установка VS Code](#шаг-2-установка-vs-code)
 3. [Установка расширения Claude Code](#шаг-3-установка-расширения-claude-code)
 4. [Регистрация на GitHub](#шаг-4-регистрация-на-github)
-5. [Скачивание AI Ads Agent](#шаг-5-скачивание-ai-ads-agent)
+5. [Скачивание AI Ads Agent](#шаг-5-скачивание-onai-ai-target-fb)
 6. [Скачивание MCP сервера](#шаг-6-скачивание-mcp-сервера)
 7. [Установка Python и uv](#шаг-7-установка-python-и-uv)
 8. [Получение Gemini API ключа](#шаг-8-получение-gemini-api-ключа)
@@ -99,15 +99,15 @@ GitHub — это сайт для хранения кода. Там лежит A
 
 ## Шаг 5: Скачивание AI Ads Agent
 
-1. Открой https://github.com/dengineproblem/ai-ads-agent
+1. Открой https://github.com/onaicademy/onai-ai-target-fb
 2. Нажми зелёную кнопку **Code**
 3. Выбери **Download ZIP**
-4. Скачается файл `ai-ads-agent-main.zip`
+4. Скачается файл `onai-ai-target-fb-main.zip`
 5. Распакуй архив (дважды кликни на него)
-6. Переименуй папку в `ai-ads-agent` (убери `-main`)
+6. Переименуй папку в `onai-ai-target-fb` (убери `-main`)
 7. Перемести папку в удобное место, например:
-   - Mac: `/Users/ТВОЁ_ИМЯ/Projects/ai-ads-agent`
-   - Windows: `C:\Users\ТВОЁ_ИМЯ\Projects\ai-ads-agent`
+   - Mac: `/Users/ТВОЁ_ИМЯ/Projects/onai-ai-target-fb`
+   - Windows: `C:\Users\ТВОЁ_ИМЯ\Projects\onai-ai-target-fb`
 
 **Готово:** AI Ads Agent скачан.
 
@@ -117,15 +117,15 @@ GitHub — это сайт для хранения кода. Там лежит A
 
 MCP сервер — это программа, которая соединяет Claude с Facebook.
 
-1. Открой https://github.com/dengineproblem/meta-ads-mcp-extended
+1. Открой https://github.com/onaicademy/onai-ai-target-fb
 2. Нажми зелёную кнопку **Code**
 3. Выбери **Download ZIP**
-4. Скачается файл `meta-ads-mcp-extended-main.zip`
+4. Скачается файл `onai-ai-target-fb-mcp-main.zip`
 5. Распакуй архив
-6. Переименуй папку в `meta-ads-mcp-extended`
+6. Переименуй папку в `onai-ai-target-fb-mcp`
 7. Перемести в ту же папку Projects:
-   - Mac: `/Users/ТВОЁ_ИМЯ/Projects/meta-ads-mcp-extended`
-   - Windows: `C:\Users\ТВОЁ_ИМЯ\Projects\meta-ads-mcp-extended`
+   - Mac: `/Users/ТВОЁ_ИМЯ/Projects/onai-ai-target-fb-mcp`
+   - Windows: `C:\Users\ТВОЁ_ИМЯ\Projects\onai-ai-target-fb-mcp`
 
 **Готово:** MCP сервер скачан.
 
@@ -349,7 +349,7 @@ Access Token — это "пароль" для API. У System User он бесс�
 
 1. Открой VS Code
 2. Нажми **File** → **Open Folder**
-3. Выбери папку `ai-ads-agent`
+3. Выбери папку `onai-ai-target-fb`
 4. В VS Code слева увидишь файлы проекта
 
 **Создай файл настроек MCP:**
@@ -377,9 +377,9 @@ Access Token — это "пароль" для API. У System User он бесс�
 ```
 
 9. Замени значения:
-   - `ПУТЬ_К_MCP` → полный путь к папке meta-ads-mcp-extended
-     - Mac пример: `/Users/ivan/Projects/meta-ads-mcp-extended`
-     - Windows пример: `C:\\Users\\ivan\\Projects\\meta-ads-mcp-extended` (двойные слеши!)
+   - `ПУТЬ_К_MCP` → полный путь к папке onai-ai-target-fb-mcp
+     - Mac пример: `/Users/ivan/Projects/onai-ai-target-fb-mcp`
+     - Windows пример: `C:\\Users\\ivan\\Projects\\onai-ai-target-fb-mcp` (двойные слеши!)
    - `ТВОЙ_APP_ID` → App ID из шага 9
    - `ТВОЙ_APP_SECRET` → App Secret из шага 9
    - `ТВОЙ_ACCESS_TOKEN` → токен из шага 11

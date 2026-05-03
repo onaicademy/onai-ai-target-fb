@@ -27,8 +27,8 @@ MCP (Model Context Protocol) — это мост между Claude и Facebook A
 
 1. Склонируй репозиторий MCP:
 ```bash
-git clone https://github.com/YOUR_USERNAME/meta-ads-mcp-extended.git
-cd meta-ads-mcp-extended
+git clone https://github.com/YOUR_USERNAME/onai-ai-target-fb-mcp.git
+cd onai-ai-target-fb-mcp
 ```
 
 2. Установи зависимости:
@@ -43,7 +43,7 @@ uv sync
   "mcpServers": {
     "meta-ads": {
       "command": "uv",
-      "args": ["run", "--directory", "/путь/к/meta-ads-mcp-extended", "meta-ads-mcp"],
+      "args": ["run", "--directory", "/путь/к/onai-ai-target-fb-mcp", "meta-ads-mcp"],
       "env": {
         "META_APP_ID": "твой_app_id",
         "META_APP_SECRET": "твой_app_secret",
@@ -93,7 +93,7 @@ cp -r config/ ~/.claude/ads-agent/
 
 Или создай симлинки:
 ```bash
-ln -s /путь/к/ai-ads-agent/skills ~/.claude/skills
+ln -s /путь/к/onai-ai-target-fb/skills ~/.claude/skills
 ```
 
 ---

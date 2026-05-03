@@ -35,8 +35,8 @@ pip install uv
 ### 2. Склонируй MCP сервер
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/meta-ads-mcp-extended.git
-cd meta-ads-mcp-extended
+git clone https://github.com/YOUR_USERNAME/onai-ai-target-fb-mcp.git
+cd onai-ai-target-fb-mcp
 uv sync
 ```
 
@@ -71,7 +71,7 @@ uv sync
   "mcpServers": {
     "meta-ads": {
       "command": "uv",
-      "args": ["run", "--directory", "/полный/путь/к/meta-ads-mcp-extended", "meta-ads-mcp"],
+      "args": ["run", "--directory", "/полный/путь/к/onai-ai-target-fb-mcp", "meta-ads-mcp"],
       "env": {
         "META_APP_ID": "123456789",
         "META_APP_SECRET": "abc123def456",
@@ -83,7 +83,7 @@ uv sync
 ```
 
 Замени:
-- `/полный/путь/к/meta-ads-mcp-extended` — путь к склонированному репо
+- `/полный/путь/к/onai-ai-target-fb-mcp` — путь к склонированному репо
 - `123456789` — твой App ID
 - `abc123def456` — твой App Secret
 - `EAAG...` — твой Access Token

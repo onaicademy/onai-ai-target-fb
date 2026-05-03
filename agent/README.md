@@ -60,7 +60,7 @@ AI-агент для управления Facebook/Instagram рекламой ч
 ## Структура
 
 ```
-ai-ads-agent/
+onai-ai-target-fb/
 ├── README.md              # Этот файл
 ├── QUICKSTART.md          # Быстрый старт
 ├── skills/                # 12 Claude Skills
