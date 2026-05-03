@@ -1,0 +1,54 @@
+# ═══════════════════════════════════════════════════════════════
+#   Что НЕ коммитить в этот репозиторий
+# ═══════════════════════════════════════════════════════════════
+
+# ─── Секреты ──────────────────────────────────────────────────
+.env
+.env.*
+!.env.example
+*.token
+*.key
+config/tokens.md
+.mcp.json
+
+# ─── Реальные данные клиентов (если используешь репо для себя) ─
+# Раскомментируй если хранишь свои аккаунты в этом же дереве:
+# agent/config/ad_accounts.md
+# agent/config/briefs/*.md
+# !agent/config/briefs/_template.md
+
+# ─── Python ───────────────────────────────────────────────────
+__pycache__/
+*.py[oc]
+*.egg-info/
+build/
+dist/
+wheels/
+.venv/
+venv/
+.python-version
+poetry.lock
+uv.lock
+.uv.toml
+.pytest_cache/
+
+# ─── Сгенерированный контент ──────────────────────────────────
+ad_creatives/
+agent/config/history/
+mcp-server/debug/
+!mcp-server/debug/README.md
+
+# ─── OS / IDE ─────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+.cursor/
+.cursor/rules/meta-ads-credentials.mdc
+*.swp
+*.swo
+
+# ─── Логи и временные ──────────────────────────────────────────
+*.log
+*.tmp
+internal/

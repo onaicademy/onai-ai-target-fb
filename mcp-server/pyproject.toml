@@ -1,0 +1,51 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "meta-ads-mcp"
+version = "1.0.20"
+description = "Model Context Protocol (MCP) server for Meta Ads - Use Remote MCP at pipeboard.co for easiest setup"
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [
+    {name = "Yves Junqueira", email = "yves.junqueira@gmail.com"},
+]
+keywords = ["meta", "facebook", "ads", "api", "mcp", "claude"]
+license = {text = "BUSL-1.1"}
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: Other/Proprietary License",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "httpx>=0.26.0",
+    "mcp[cli]==1.12.2",
+    "python-dotenv>=1.1.0",
+    "requests>=2.32.3",
+    "Pillow>=10.0.0",
+    "pathlib>=1.0.1",
+    "python-dateutil>=2.8.2",
+    "pytest>=8.4.1",
+    "pytest-asyncio>=1.0.0",
+    "google-generativeai>=0.8.6",
+    "google-genai>=1.59.0",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/pipeboard-co/meta-ads-mcp"
+"Bug Tracker" = "https://github.com/pipeboard-co/meta-ads-mcp/issues"
+
+[project.scripts]
+meta-ads-mcp = "meta_ads_mcp:entrypoint"
+
+[tool.hatch.build.targets.wheel]
+packages = ["meta_ads_mcp"]
+
+[tool.pytest.ini_options]
+markers = [
+    "e2e: marks tests as end-to-end (requires running MCP server) - excluded from default runs",
+]
+addopts = "-v --strict-markers -m 'not e2e'"
+testpaths = ["tests"]
+asyncio_mode = "auto"

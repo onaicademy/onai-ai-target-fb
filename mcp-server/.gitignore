@@ -1,0 +1,35 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+.cursor/rules/meta-ads-credentials.mdc
+.DS_Store
+
+# Development environment files
+.python-version
+.env
+.env.*
+poetry.lock
+uv.lock
+.uv.toml
+.cursor/
+
+# Generated content
+ad_creatives/
+
+# Debug and development files
+debug/
+*.pyc
+.pytest_cache/
+
+# Keep organized directories but exclude some debug content
+!debug/README.md
+
+internal/
+uv.lock
