@@ -71,8 +71,8 @@ onai-ai-targetolog/
 ### Установка одной командой
 
 ```bash
-git clone https://github.com/onaicademy/ai-targetolog.git
-cd ai-targetolog
+git clone https://github.com/onaicademy/onai-ai-target-fb.git
+cd onai-ai-target-fb
 ./install.sh
 ```
 
