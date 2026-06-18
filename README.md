@@ -185,7 +185,7 @@ onai-ai-target-fb/
 
 ## Поддержка
 
-- Telegram-сообщество: [@strogo_na_opuse](https://t.me/strogo_na_opuse)
+- Telegram-сообщество: [@Opus club канал для вайбкодеров](https://t.me/+sd58W5VltlxmZmIy)
 - Видео-уроки: onAI.academy → курс «Vibe coding с Claude Code» → Бонус-урок 5
 - Pipeboard support: [info@pipeboard.co](mailto:info@pipeboard.co)
 
